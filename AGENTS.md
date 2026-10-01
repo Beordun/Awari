@@ -57,10 +57,15 @@ You must follow every rule in this list. Do not bend them, even if a task seems 
 26. Do not run destructive database commands (drop, truncate, reset) against any shared or production database. Use Prisma migrations for every schema change. Do not edit the database by hand.
 27. Do not change the meaning of existing enums or fields in the Prisma schema without a migration and a note to the owner.
 
+### Design system and UI styling
+31. `design-tokens/design-tokens.tokens.json` is the authoritative source of truth for all visual tokens (colors, typography, elevation shadows). Token updates must originate there and be compiled using `node build-tokens.js`. Never hardcode ad-hoc hex values, fonts, or shadow metrics in UI components.
+32. Primitive color tokens (`--color-primitive-*` and raw tonal steps `0` through `100`) are internal building blocks. They must never be used directly in UI markup or component stylesheets.
+33. All UI elements (surfaces, typography, buttons, borders, states) must strictly consume semantic color rules (`--color-*`, e.g., `--color-primary`, `--color-surface`, `--color-on-surface`, `--color-outline`, etc.). These semantic rules reference primitives and ensure seamless adaptation across Light and Dark themes.
+
 ### Working conduct
-28. Do not add features that are not in the PRD. If you think something is missing, propose it in writing and wait.
-29. Do not state that something works unless you ran it. Report what you tested and what you did not.
-30. Flag every assumption you make. Mark it clearly in your reply and in a code comment where relevant.
+34. Do not add features that are not in the PRD. If you think something is missing, propose it in writing and wait.
+35. Do not state that something works unless you ran it. Report what you tested and what you did not.
+36. Flag every assumption you make. Mark it clearly in your reply and in a code comment where relevant.
 
 ---
 
@@ -77,7 +82,7 @@ You may make these choices yourself. Keep them simple, explain them briefly in y
 - Internal function and variable names.
 
 ### Interface
-- Visual styling, component library, colours, and spacing, provided the interface stays plain, fast, and readable on a phone.
+- Visual styling, component library, layout, and spacing, provided the interface stays plain, fast, readable on a phone, and strictly adheres to the semantic design tokens.
 - Page layout of the listing feed, filter controls, and search box.
 - Pagination size for listings.
 - Wording of empty states and error messages, provided they follow rule 9 and rule 10.

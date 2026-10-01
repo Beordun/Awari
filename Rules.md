@@ -78,11 +78,17 @@ You must follow every rule in this section. Do not bend them under any circumsta
 26. **No destructive DB commands:** Never run `drop`, `truncate`, or `reset` on shared databases. All schema updates require Prisma migrations.
 27. **Preserve schema meaning:** Do not alter existing Prisma enums or fields without an approved migration.
 
+### Design System & UI Styling
+
+31. **Design system as single source of truth:** `design-tokens/design-tokens.tokens.json` is the authoritative source of truth for all visual tokens (colors, typography, elevation shadows). Any token updates must originate there and be compiled using `node build-tokens.js`. Never hardcode ad-hoc hex values, fonts, or shadow metrics in UI components.
+32. **No raw primitives on UI:** Primitive color tokens (`--color-primitive-*` and raw tonal steps `0` through `100`) are internal building blocks. They must never be used directly in UI markup or component stylesheets.
+33. **UI styling via semantic color rules only:** All UI elements (surfaces, typography, buttons, borders, states) must strictly consume semantic color rules (`--color-*`, e.g., `--color-primary`, `--color-surface`, `--color-on-surface`, `--color-outline`, etc.). These semantic rules reference primitives and ensure seamless adaptation across Light and Dark themes.
+
 ### Working Conduct
 
-28. **No unapproved features:** Do not add scope outside the PRD.
-29. **Verify before claiming:** Do not state something works without executing and testing it.
-30. **Explicit assumptions:** Document every assumption clearly in responses and code comments.
+34. **No unapproved features:** Do not add scope outside the PRD.
+35. **Verify before claiming:** Do not state something works without executing and testing it.
+36. **Explicit assumptions:** Document every assumption clearly in responses and code comments.
 
 ---
 
@@ -91,7 +97,7 @@ You must follow every rule in this section. Do not bend them under any circumsta
 The following can be adjusted provided they remain simple, documented, and consistent:
 
 - **Code & Structure:** Folder organization, utility libraries (well-maintained, non-redundant), internal naming, and test layouts.
-- **Interface & Styling:** Component layout, color tokens, and spacing (must remain fast, clean, and mobile-first).
+- **Interface & Styling:** Component layout, structural arrangement, and spacing (must remain fast, clean, mobile-first, and strictly adhere to semantic design tokens).
 - **Configuration:**
   - Retry wait duration between Apify attempts.
   - Ingestion schedule hour during development.
